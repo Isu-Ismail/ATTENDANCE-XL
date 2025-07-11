@@ -8,7 +8,7 @@ today = date.today()
 open_file = "attendance_sheet.xlsx"
 wb = xl.load_workbook(open_file)
 
-# 🔄 Wait until the Excel file is closed
+# Wait until the Excel file is closed
 def wait_until_file_closed(filename=open_file):
     while True:
         try:
@@ -18,21 +18,21 @@ def wait_until_file_closed(filename=open_file):
             print(f"⏳ '{filename}' is currently open. Please close it to proceed.")
             time.sleep(3)
 
-# 📊 Find next empty column
+# Find next empty column
 def selectedCol(sheet):
     col = 3
     while sheet.cell(row=3, column=col).value:
         col += 1
     return col
 
-# 🔢 Count total student rows
+#  Count total student rows
 def selectedRow(sheet, start_row=5):
     row = start_row
     while sheet.cell(row=row, column=1).value:
         row += 1
     return row - 4
 
-# 🔡 Convert range input like 1-5,8 to list of integers
+#  Convert range input like 1-5,8 to list of integers
 def parse_roll_numbers(input_string):
     result = set()
     parts = input_string.split(',')
@@ -45,7 +45,7 @@ def parse_roll_numbers(input_string):
             result.add(int(part))
     return sorted(result)
 
-# ✅ Mark all as present and add summary
+# Mark all as present and add summary
 def full_present(sheet, selected_column, number_of_hours, filename=open_file):
     sheet.cell(3, selected_column).value = number_of_hours
     sheet.cell(2, selected_column).value = today.strftime("%d-%m-%Y")
@@ -64,7 +64,7 @@ def full_present(sheet, selected_column, number_of_hours, filename=open_file):
 
     wb.save(filename)
 
-# ✅ Mark attendance using absentees list and add summary
+#  Mark attendance using absentees list and add summary
 def auto_attendance_marker(sheet, selected_column, number_of_hours, absentees, filename=open_file):
     sheet.cell(3, selected_column).value = number_of_hours
     sheet.cell(2, selected_column).value = today.strftime("%d-%m-%Y")
@@ -99,7 +99,7 @@ print(f"✅ '{open_file}' is closed. Proceeding...")
 
 subjects = wb.sheetnames
 
-# 📘 Ask for subject name
+#  Ask for subject name
 while True:
     print()
     open_sheet = input(f"Enter the name of the subject {subjects}: ").lower()
@@ -111,7 +111,7 @@ while True:
         if input("Do you want to continue? (y/n): ").lower() != "y":
             exit()
 
-# 🎯 Ask for absentees or full present
+# Ask for absentees or full present
 while True:
     print()
     user_input = input(
